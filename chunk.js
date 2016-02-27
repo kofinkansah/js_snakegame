@@ -1,3 +1,9 @@
+/*game library which will help us: 
+Draw chunky-pixels on the screen!
+Respond to user input
+Start and end a game
+Check for things running into each other
+*/
 var CHUNK = {
   canvasWidth: 800,
   canvasHeight: 600,
