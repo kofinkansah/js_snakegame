@@ -1,9 +1,22 @@
-var snake = [{top: 0, left: 0}]; 
-//creates an array with a single object or hash map specifying top and left values
-var drawableSnake = { color: "blue", pixels: snake };
-//creates and object specifying color and pixels of drawableSnake
-var drawableObjects = [drawableSnake];
-//CHUNK's draw method expects an array. we put the drawableSnake in an array here
-CHUNK.draw(drawableObjects);
+var drawSnake = function(snakeToDraw) {
+	var drawableSnake = { color: "green", pixels: snakeToDraw };
+	//creates and object specifying color and pixels of drawableSnake
+	var drawableObjects = [drawableSnake];
+	//CHUNK's draw method expects an array (forEach method). we put the drawableSnake in an array here
+	CHUNK.draw(drawableObjects);
 //call draw on drawableObjects. 
+}
+var moveSnake = function(snake) {
+  var oldSegment = snake[0];//get the value at this location in the array
+  var newSegment = { top: oldSegment.top + 1, left: oldSegment.left };
+  var newSnake = [newSegment];
+  return newSnake;
+}
+var advanceGame = function() {
+  snake = moveSnake(snake);
+  drawSnake(snake);
+}
+var snake = [{ top: 0, left: 0 }];
+CHUNK.executeNTimesPerSecond(advanceGame, 1);
+
 
