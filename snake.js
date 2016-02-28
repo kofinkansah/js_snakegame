@@ -19,12 +19,19 @@ var moveSegment = function(segment) {
   }
   return segment;
 }
+var segmentFurtherForwardThan = function(index, snake) {
+  if (snake[index - 1] === undefined) {
+    return snake[index];
+  } else {
+    return snake[index - 1];
+  }
+}
 var moveSnake = function(snake) {
-  var oldSegment = snake[0];//get the value at this location in the array
-  var newSegment = moveSegment(oldSegment);
-  newSegment.direction = oldSegment.direction;
-  var newSnake = [newSegment];
-  return newSnake;
+  return snake.map(function(oldSegment, segmentIndex) {
+    var newSegment = moveSegment(oldSegment);
+    newSegment.direction = segmentFurtherForwardThan(segmentIndex, snake).direction;
+    return newSegment;
+  });
 }
 var advanceGame = function() {
   snake = moveSnake(snake);
@@ -38,7 +45,7 @@ var changeDirection = function(direction) {
   snake[0].direction = direction;
 }
 
-var snake = [{ top: 0, left: 0, direction: "down" }];
+var snake = [{ top: 1, left: 0, direction: "down" }, { top: 0, left: 0, direction: "down" }];
 CHUNK.executeNTimesPerSecond(advanceGame, 1);
 CHUNK.onArrowKey(changeDirection);
 
